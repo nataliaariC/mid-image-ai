@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="sdk-dita:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="sdk-dita-0.0.1.war">
+      <element id="artifact" artifact-name="sdk-dita:war exploded" />
+    </root>
+  </artifact>
+</component>
