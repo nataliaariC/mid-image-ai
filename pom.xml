@@ -7,7 +7,7 @@
     <groupId>com.chatbotgeek</groupId>
     <artifactId>mid-image-ai</artifactId>
     <version>0.0.1</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
  
     <name>Mid-Image-AI</name>
     <description>Spring Boot sdk Dita</description>
