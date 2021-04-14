@@ -121,7 +121,7 @@ public class ServiceImp implements IService {
         String latitude = extensionRequest.getLatitude();
         String longitude = extensionRequest.getLongitude();
         String phone = extensionRequest.getPhone();
-        
+
         String customer_id = extensionRequest.getCustomer_id();
         String token = getToken();
         String base64 = getBase64(token, id);
@@ -133,32 +133,37 @@ public class ServiceImp implements IService {
         obj.put("longitude", longitude);
         obj.put("phone", phone);
         obj.put("customer_id", customer_id);
-       
-       // obj.append("id", id);
+
+        // obj.append("id", id);
         System.out.println(obj.toString());
         String suc = "Terimakasih foto yang Anda kirim sudah tersimpan";
         String fail = "Maaf foto yang anda kirimkan tidak sesuai !";
+        String result =  "";
         try {
             HttpResponse<String> response = Unirest.post("http://ec2-3-0-26-91.ap-southeast-1.compute.amazonaws.com:8080/detectObject")
                     .header("Content-Type", "application/json")
                     .body(obj.toString())
                     .asString();
             System.out.println(response.getBody());
-           json = new JSONObject(response.getBody());
-           JSONArray arr = json.getJSONArray("prediction");
+            json = new JSONObject(response.getBody());
+            JSONArray arr = json.getJSONArray("prediction");
             
-           
-           if (arr.length() == 0) {
+            if (arr.length() == 0) {
                 System.out.println(fail);
+                result = fail;
+                output.put("code", "00");
             } else {
                 System.out.println(suc);
+                result = suc;
+                output.put("code", "01");
             }
-            
+
         } catch (UnirestException ex) {
             java.util.logging.Logger.getLogger(Service.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         //output.put("image", base64);
-        output.put("result", suc);
+        output.put("result", result);
         er.setValue(output);
         return er;
     }
